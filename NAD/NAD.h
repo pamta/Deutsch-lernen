@@ -6,11 +6,18 @@
 
 #include<iostream>
 
+#include<stdio.h>
+
+#include<stdlib.h>
+
+#include<time.h>
+
 using namespace std;
 
 class Worte
 {
 	public:
+		//Constructors
 		Worte();
 
 		Worte(char cTypeP, char cGattungP, char cNADP, string sWorteP);
@@ -29,10 +36,13 @@ class Worte
 		int getZahl();
 
 		//Making the question, receiving the answer
-		void Process();
+		void process();
 
 		//Returning an object from its Zahl
-		Worte wReturn(int iZahlP);
+		Worte wReturn(int iZahlP, Worte wArray[]);
+
+		//Function to return a random number from 0 to iZahler
+		int returnRandom();
 
 	
 
@@ -60,6 +70,9 @@ class Worte
 
 int Worte :: iZahler = 0;
 
+//Constructors
+
+//iZahler should not be increased here, problems would be caused because of the creation of an array of this class
 Worte :: Worte()
 {
 	cType = '0';
@@ -67,10 +80,6 @@ Worte :: Worte()
 	cGattung = '0';
 
 	cNAD ='0';
-
-	iZahler++;
-
-	iZahl = iZahler;
 }
 
 Worte :: Worte(char cTypeP, char cGattungP, char cNADP, string sWorteP)
@@ -87,6 +96,8 @@ Worte :: Worte(char cTypeP, char cGattungP, char cNADP, string sWorteP)
 
 	iZahl = iZahler;
 }
+
+//Getters
 
 inline int Worte :: getZahler()
 {
@@ -118,18 +129,30 @@ inline string Worte :: getWorte()
 	return sWorte;
 }
 
-Worte Worte :: wReturn(int iZahlP)
+//Function that returns the word that has the value of iZahlP in iZahl
+//Since the index number is the same.
+Worte Worte :: wReturn(int iZahlP, Worte wArray[])
 {
-	//Object to return
-	//Worte wWorte;
-
-	for(int i = 0; i < iZahler; i++)
-	{
-		
-	}
+	return wArray[iZahlP];
 }
 
-void Worte :: Process()
+//Function to return a random number between 0 and iZahler
+int Worte :: returnRandom()
+{
+	//Variable to store the random value
+	int iRandom;
+
+	//Inizializating the seed
+	srand(time(NULL));
+
+	//Generating the number between 0 and iZahler
+	iRandom = rand() % iZahler + 1;
+
+	//Returning the random number
+	return iRandom;
+}
+
+void Worte :: process()
 {
 	//Result
 	bool bResult;
@@ -140,7 +163,7 @@ void Worte :: Process()
 	//string to save the user's answer
 	string sAntwort;
 
-	cout << "Beschreibung:" << endl;
+	cout << endl << "Beschreibung:" << endl;
 
 	if(cType == 'u')
 	{
@@ -174,6 +197,11 @@ void Worte :: Process()
 		cout << "neutrale";
 	}
 
+	else if(cGattung == 'p')
+	{
+		cout << "plural";
+	}
+
 	cout << " und ";
 
 	if(cNAD == 'n')
@@ -202,14 +230,14 @@ void Worte :: Process()
 		//Checking the answer
 		if(sAntwort == sWorte)
 		{
-			cout << "Das ist richtig";
+			cout << "Das ist richtig!" << endl;
 
 			bResult = true;
 		}
 
 		else
 		{
-			cout << "Das ist nicht richtig :c. Versuch es noch einmal bitte";
+			cout << "Das ist nicht richtig :c. Versuch es noch einmal bitte" << endl;
 
 			bResult = false;
 		}

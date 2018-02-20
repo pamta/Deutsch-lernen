@@ -3,9 +3,28 @@
 using namespace std;
 
 
+/*
+	Here all that the program can do, will be displayed to the
+	user
+*/
+void displayMenu()
+{
+	cout << "Press 1 to play in a total random order of words" << endl;
+	
+	//This option is incompleted
+	//cout << "Press 2 to repeat words only after completing all the questions" << endl;
+
+	cout << "Press any other key to stop the program" << endl;
+
+}
+
 int main()
 {
-	int iZahler;
+	//Char to store the option entered by the user
+	char cOption;
+
+	//Integer variable to store the random value that will be returned
+	int iRandom;
 
 
 	//Aritikel-------------------------------------------------------------------------------
@@ -89,12 +108,32 @@ int main()
 
 		Worte meiner2('p', 'p', 'd', "meiner");
 
-	//iZahler = der.getZahler();
+	
 
 	//Creating the array of words
 	Worte wArray[50] = {der, das, die, die2, den, das2, die3, die4, dem, dem2, der2, den2, ein, ein2, eine, einen, ein3, eine2, einem, einem2, einer, mein, mein2, meine, meine2, meinen, mein3, meine3, meine4, meinem, meinem2, meiner, meiner2};
 
-	cout << wArray[1].getGattung() << endl;	
+	//Welcoming the user just the first time
+	cout << endl << "Hello, welcomo to NAD, the tool that you need to study" << endl;
+
+	cout << "the german nominative, accusative and dative articles and possessive pronouns." << endl;
+
+	//Displaying the menu to the user
+	displayMenu();
+
+	//Asking the user its options
+	cin >> cOption;
+
+	//Making the iteration
+	do
+	{
+		//Getting the random number
+		iRandom = wArray[0].returnRandom();
+
+		//Asking the word of the word with the iRandom index
+		wArray[iRandom].process();
+	
+	}while((cOption = '1'));
 
 	//End
 	return 0;
